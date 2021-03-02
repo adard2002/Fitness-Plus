@@ -1,4 +1,4 @@
-`use strict`;
+'use strict';
 
 //Load Environment Variables from the .env file
 require('dotenv').config();
@@ -78,9 +78,5 @@ client.connect() //<<--keep in server.js
   .catch(err => {
     throw `PG error!:  ${err.message}`;//<<--these are tics not single quotes
   });
-
-
-
-
 
 
