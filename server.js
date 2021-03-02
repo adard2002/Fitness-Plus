@@ -1,5 +1,4 @@
-`use strict`;
-
+'use strict';
 
 //Load Environment Variables from the .env file
 require('dotenv').config();
@@ -9,7 +8,7 @@ const express = require('express');
 // const cors = require('cors');
 const pg = require('pg');
 pg.defaults.ssl = process.env.NODE_ENV === 'production' && { rejectUnauthorized: false };
-const superagent = require('superagent'); 
+const superagent = require('superagent');
 const methodOverride = require('method-override');
 
 // Database Setup
@@ -79,9 +78,5 @@ client.connect() //<<--keep in server.js
   .catch(err => {
     throw `PG error!:  ${err.message}`;//<<--these are tics not single quotes
   });
-
-
-
-
 
 
