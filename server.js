@@ -1,5 +1,6 @@
 'use strict';
 
+
 //Load Environment Variables from the .env file
 require('dotenv').config();
 
@@ -96,5 +97,5 @@ client.connect() //<<--keep in server.js
     app.listen(PORT, () => console.log(`App is listening on ${PORT}`)); //<<--these are tics not single quotes
   })
   .catch(err => {
-    throw `PG error!:  ${err.message}` //<<--these are tics not single quotes
+    throw `PG error!:  ${err.message}`;//<<--these are tics not single quotes
   });
