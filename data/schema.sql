@@ -1,4 +1,4 @@
-CREATE TABLE RoundData (
+CREATE TABLE WorkoutTable (
     Id SERIAL PRIMARY KEY,
     workout_date DATE NOT NULL,
     week_day VARCHAR(255) NOT NULL,
