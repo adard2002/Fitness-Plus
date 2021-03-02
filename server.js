@@ -11,6 +11,7 @@ const pg = require('pg');
 pg.defaults.ssl = process.env.NODE_ENV === 'production' && { rejectUnauthorized: false };
 const superagent = require('superagent');
 const methodOverride = require('method-override');
+const { request, response } = require('express');
 
 // Database Setup
 if (!process.env.DATABASE_URL) {
@@ -26,6 +27,7 @@ client.on('error', err => { throw err; });
 const PORT = process.env.PORT || 3001 || 3002 || 3003;
 console.log('Server is running on port: ', PORT);
 const app = express();
+app.use(express.urlencoded({extended: true}));
 
 // app.get('/', getWorkout);
 
@@ -76,6 +78,12 @@ app.use(notFoundHandler);
 
 //Has to be after stuff loads
 app.use(errorHandler);
+
+function getAvatar(seed) {
+  const url = `https://avatars.dicebear.com/api/jdenticon/${seed}.svg`;
+  //console.log('🥤🥤🥤', url);
+  return { image: url };
+}
 
 function errorHandler(error, request, response, next) {
   console.error(error);
