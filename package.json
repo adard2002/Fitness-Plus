@@ -19,14 +19,14 @@
   },
   "homepage": "https://github.com/adard2002/Mystery-Project#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.6",
-    "node.js": "0.0.1-security",
-    "eslint": "^7.20.0",
+    "eslint": "^7.21.0",
     "express": "^4.17.1",
     "method-override": "^3.0.0",
+    "node.js": "0.0.1-security",
     "pg": "^8.5.1",
-    "superagent": "^6.1.0",
-    "cors": "^2.8.5"
+    "superagent": "^6.1.0"
   }
 }
