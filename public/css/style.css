@@ -3,13 +3,63 @@ body {
 }
 
 h1 {
-  font-size: 50px;
-  width: 100%;
-  height: 25px;
-  margin-bottom: 25px;
+  height: 60px;
   text-align: center;
+  color: white;
   background-color:rgb(105, 65, 65);
 }
+
+header {
+  background-color:rgb(105, 65, 65);
+}
+
+nav {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 50px;
+  font-style: italic;
+  text-align: center;
+}
+
+a:link, a:visited {
+  background-color: darkgrey;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: x-large;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+a:hover, a:active {
+  background-color: rgb(233, 162, 104);
+}
+
+div {
+  display: block;
+  border: orange;
+  /* list-style-type: none; */
+}
+
+li {
+  margin-left: 15px;
+  display: inline-block;
+  justify-content: space-around;
+  border-top:darkgrey;
+}
+
+
+/* nav {
+  text-align: center;
+  justify-content: space-around;
+  background-color:rgb(105, 65, 65);
+}
+
+li {
+  font-size: 25px;
+  height: 25px;
+  display: inline-block;
+} */
 
 img {
   height: 400px;
@@ -19,12 +69,20 @@ img {
 
 
 
+
+
+
+
+
+
+
+
+
 /* ========= Slideshow/Carousel =========*/
 /* Slideshow container */
 .slideshow-container {
-    max-width: 1000px;
-    position: relative;
-    margin: auto;
+    margin-top: 25px;
+    text-align: center;
   }
 
   /* Next & previous buttons */
