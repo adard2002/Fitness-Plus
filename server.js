@@ -33,6 +33,11 @@ app.get('/', (request, response) => {
   response.render('index');
 });
 
+app.get('/workout', (request, response) => {
+  response.render('./workout');
+});
+
+
 //Express Middleware
 app.use(express.urlencoded({ extended: true }));
 
@@ -55,14 +60,14 @@ app.use('*', (request, response) => response.send('Sorry, that route does not ex
 //     SELECT *
 //     FROM WorkoutTable
 //     `;
-//     console.log('response');
+//   console.log('response');
 
 //   client.query(SQL)
 //     .then(results => {
 //       const {rowCount, rows} = results;
 //       console.log('DB', rows, rowCount);
-//       response.render('pages/index', {
-//         books: rows,
+//       response.render('workout', {
+//         workouts: rows,
 //       });
 //     })
 //     .catch(err => {
@@ -99,4 +104,13 @@ client.connect() //<<--keep in server.js
   .catch(err => {
     throw `PG error!:  ${err.message}`;//<<--these are tics not single quotes
   });
+
+function workout(results) {
+  this.workout_date = workout_date;
+  this.week_day = week_day;
+  this.exercise = exercise;
+  this.focus_area = focus_area;
+  this.liift_round = liift_round;
+  this.weight_used = weight_used;
+}
 
