@@ -1,5 +1,6 @@
 'use strict';
 
+
 //Load Environment Variables from the .env file
 require('dotenv').config();
 
@@ -26,8 +27,10 @@ const PORT = process.env.PORT || 3001 || 3002 || 3003;
 console.log('Server is running on port: ', PORT);
 const app = express();
 
+// app.get('/', getWorkout);
+
 app.get('/', (request, response) => {
-  response.render('pages/index');
+  response.render('index');
 });
 
 //Express Middleware
@@ -47,7 +50,25 @@ app.set('view engine', 'ejs');
 
 app.use('*', (request, response) => response.send('Sorry, that route does not exist.'));
 
+// function getWorkout(request, response){
+//   const SQL = `
+//     SELECT *
+//     FROM WorkoutTable
+//     `;
+//     console.log('response');
 
+//   client.query(SQL)
+//     .then(results => {
+//       const {rowCount, rows} = results;
+//       console.log('DB', rows, rowCount);
+//       response.render('pages/index', {
+//         books: rows,
+//       });
+//     })
+//     .catch(err => {
+//       errorHandler(err, request, response);
+//     });
+// }
 
 
 //Has to be after stuff loads too
@@ -78,5 +99,4 @@ client.connect() //<<--keep in server.js
   .catch(err => {
     throw `PG error!:  ${err.message}`;//<<--these are tics not single quotes
   });
-
 
