@@ -20,8 +20,6 @@ const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => { throw err; });
 
 
-// Our Dependencies
-
 //Application Setup
 const PORT = process.env.PORT || 3001 || 3002 || 3003;
 console.log('Server is running on port: ', PORT);
@@ -31,6 +29,10 @@ const app = express();
 
 app.get('/', (request, response) => {
   response.render('index');
+});
+
+app.get('/login', (request, response) => {
+  response.render('./login');
 });
 
 app.get('/workout', (request, response) => {
@@ -96,14 +98,6 @@ function notFoundHandler(request, response) {
   });
 }
 
-client.connect() //<<--keep in server.js
-  .then(() => {
-    console.log('PG connected!');
-    app.listen(PORT, () => console.log(`App is listening on ${PORT}`)); //<<--these are tics not single quotes
-  })
-  .catch(err => {
-    throw `PG error!:  ${err.message}`;//<<--these are tics not single quotes
-  });
 
 function workout(results) {
   this.workout_date = workout_date;
@@ -114,3 +108,11 @@ function workout(results) {
   this.weight_used = weight_used;
 }
 
+client.connect() //<<--keep in server.js
+  .then(() => {
+    console.log('PG connected!');
+    app.listen(PORT, () => console.log(`App is listening on ${PORT}`)); //<<--these are tics not single quotes
+  })
+  .catch(err => {
+    throw `PG error!:  ${err.message}`;//<<--these are tics not single quotes
+  });
