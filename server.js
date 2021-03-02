@@ -37,7 +37,6 @@ app.get('/workout', (request, response) => {
   response.render('./workout');
 });
 
-
 //Express Middleware
 app.use(express.urlencoded({ extended: true }));
 
