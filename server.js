@@ -49,9 +49,6 @@ app.get('/searches/new', (request, response) => {
   response.render('pages/searches/new'); //do not include a / before pages or it will say that it is not in the views folder
 });
 
-app.get('/searches/show', (request, response) => {
-  response.render('pages/searches/show'); //do not include a / before pages or it will say that it is not in the views folder
-});
 
 
 //Express Middleware
@@ -94,15 +91,18 @@ app.use('*', (request, response) => response.send('Sorry, that route does not ex
 function workoutHandler(request, response) {
   let url = 'https://wger.de/api/v2/exerciseinfo/';
   
-  if (request.body.searchType === 'abs') { url += `+name:${request.body.searchType}`; }
+  // if (request.body.searchType === 'abs') { url += `+name:${request.body.searchType}`; }
   console.log('request aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', url);
   superagent.get(url)
  
-    // .query({
-    //   // category: `+in${request.body.searchType}`
-    // })
-    // .then((workoutsResponse) => workoutsResponse.body(workoutResult => new Workout(workoutResult.results)))
-    .then(results => response.render('pages/searches/show', {results: results})) //do not include a / before pages or it will say that it is not in the views folder and do not include the .ejs at the end of show
+    .query({
+      language: 2,
+    })
+    .then((workoutsResponse) => workoutsResponse.body.results.map(workoutResult => new Workout(workoutResult)))
+    .then(workouts => {
+      console.log('workouts', workouts);
+      response.render('pages/searches/show', {workouts: workouts});
+    }) //do not include a / before pages or it will say that it is not in the views folder and do not include the .ejs at the end of show
     .catch(err => {
       console.log(err);
       errorHandler(err, request, response);
@@ -139,9 +139,10 @@ function notFoundHandler(request, response) {
 
 function Workout(workoutData) {
   this.name = workoutData.name;
-  this.category = workoutData.category[1];
+  // this.category = workoutData.category[0].name;
   this.description = workoutData.description;
   this.equipment = workoutData.equipment[1];
+  console.log('workoutData', workoutData);
 }
 
 client.connect() //<<--keep in server.js
