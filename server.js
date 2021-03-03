@@ -140,7 +140,7 @@ function Workout(workoutData) {
   this.name = workoutData.name;
   this.category = workoutData.category.name;
   this.description = workoutData.description;
-  this.equipment = workoutData.equipment.name};
+  this.equipment = workoutData.equipment.name;
   console.log('workoutData', workoutData);
 }
 
