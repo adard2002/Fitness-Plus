@@ -139,9 +139,9 @@ function notFoundHandler(request, response) {
 
 function Workout(workoutData) {
   this.name = workoutData.name;
-  // this.category = workoutData.category[0].name;
+  this.category = workoutData.category.name;
   this.description = workoutData.description;
-  this.equipment = workoutData.equipment[1];
+  this.equipment = workoutData.equipment.name};
   console.log('workoutData', workoutData);
 }
 
