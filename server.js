@@ -38,7 +38,19 @@ app.get('/login', (request, response) => {
 });
 
 app.get('/workout', (request, response) => {
-  response.render('./workout');
+  response.render('workout');
+});
+
+app.get('/searches', workoutHandler);
+app.post('/searches', workoutHandler); //has to match the form action on the new.js for the /searches
+
+
+app.get('/searches/new', (request, response) => {
+  response.render('pages/searches/new'); //do not include a / before pages or it will say that it is not in the views folder
+});
+
+app.get('/searches/show', (request, response) => {
+  response.render('pages/searches/show'); //do not include a / before pages or it will say that it is not in the views folder
 });
 
 //Express Middleware
@@ -78,6 +90,20 @@ app.use('*', (request, response) => response.send('Sorry, that route does not ex
 //     });
 // }
 
+function workoutHandler(request, response) {
+  const url = 'https://wger.de/api/v2/exerciseinfo/';
+  superagent.get(url)
+    .query({
+      // category: `+in${request.body.searchType}`
+    })
+    .then((workoutsResponse) => workoutsResponse.body(workoutResult => new Workout(workoutResult.results)))
+    .then(results => response.render('pages/searches/show', {results: results})) //do not include a / before pages or it will say that it is not in the views folder and do not include the .ejs at the end of show
+    .catch(err => {
+      console.log(err);
+      errorHandler(err, request, response);
+    });
+
+} // end workoutHandler function
 
 //Has to be after stuff loads too
 app.use(notFoundHandler);
@@ -106,13 +132,11 @@ function notFoundHandler(request, response) {
 }
 
 
-function workout(results) {
-  this.workout_date = workout_date;
-  this.week_day = week_day;
-  this.exercise = exercise;
-  this.focus_area = focus_area;
-  this.liift_round = liift_round;
-  this.weight_used = weight_used;
+function Workout(workoutData) {
+  this.name = workoutData.name;
+  this.category = workoutData.category[1];
+  this.description = workoutData.description;
+  this.equipment = workoutData.equipment[1];
 }
 
 client.connect() //<<--keep in server.js
