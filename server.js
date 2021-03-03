@@ -11,7 +11,6 @@ const pg = require('pg');
 pg.defaults.ssl = process.env.NODE_ENV === 'production' && { rejectUnauthorized: false };
 const superagent = require('superagent');
 const methodOverride = require('method-override');
-const { request, response } = require('express');
 
 // Database Setup
 if (!process.env.DATABASE_URL) {
@@ -152,3 +151,8 @@ client.connect() //<<--keep in server.js
   .catch(err => {
     throw `PG error!:  ${err.message}`;//<<--these are tics not single quotes
   });
+
+
+
+
+
