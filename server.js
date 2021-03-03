@@ -92,12 +92,16 @@ app.use('*', (request, response) => response.send('Sorry, that route does not ex
 // }
 
 function workoutHandler(request, response) {
-  const url = 'https://wger.de/api/v2/exerciseinfo/';
+  let url = 'https://wger.de/api/v2/exerciseinfo/';
+  
+  if (request.body.searchType === 'abs') { url += `+name:${request.body.searchType}`; }
+  console.log('request aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', url);
   superagent.get(url)
-    .query({
-      // category: `+in${request.body.searchType}`
-    })
-    .then((workoutsResponse) => workoutsResponse.body(workoutResult => new Workout(workoutResult.results)))
+ 
+    // .query({
+    //   // category: `+in${request.body.searchType}`
+    // })
+    // .then((workoutsResponse) => workoutsResponse.body(workoutResult => new Workout(workoutResult.results)))
     .then(results => response.render('pages/searches/show', {results: results})) //do not include a / before pages or it will say that it is not in the views folder and do not include the .ejs at the end of show
     .catch(err => {
       console.log(err);
