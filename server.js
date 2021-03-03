@@ -92,6 +92,30 @@ function getAvatar(seed) {
   return { image: url };
 }
 
+function dbGetWorkoutByUser (username){
+  let result;
+  const query = {
+    name: 'getWorkoutByUser',
+    text: `SELECT 
+        t2.username
+        , t3.exercise_name
+        , t3.category
+        , t1.workout_desc
+        , t1.equipment
+      FROM userWorkout t1
+      INNER JOIN username t2
+      ON t1.username = t2.username
+      INNER JOIN exercises t3
+      ON t1.workout_id = t3.exercise_id
+      WHERE t2.username = $1`,
+    values: [username]
+  };
+
+  client.query(query)
+    .then(res => result = res);
+  return result;
+}
+
 function errorHandler(error, request, response, next) {
   console.error(error);
   response.status(500).json({
