@@ -11,6 +11,7 @@ const pg = require('pg');
 pg.defaults.ssl = process.env.NODE_ENV === 'production' && { rejectUnauthorized: false };
 const superagent = require('superagent');
 const methodOverride = require('method-override');
+const { request, response } = require('express');
 
 // Database Setup
 if (!process.env.DATABASE_URL) {
@@ -20,17 +21,20 @@ const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', err => { throw err; });
 
 
-// Our Dependencies
-
 //Application Setup
 const PORT = process.env.PORT || 3001 || 3002 || 3003;
 console.log('Server is running on port: ', PORT);
 const app = express();
+app.use(express.urlencoded({extended: true}));
 
 // app.get('/', getWorkout);
 
 app.get('/', (request, response) => {
   response.render('index');
+});
+
+app.get('/login', (request, response) => {
+  response.render('./login');
 });
 
 app.get('/workout', (request, response) => {
@@ -81,6 +85,12 @@ app.use(notFoundHandler);
 //Has to be after stuff loads
 app.use(errorHandler);
 
+function getAvatar(seed) {
+  const url = `https://avatars.dicebear.com/api/jdenticon/${seed}.svg`;
+  //console.log('🥤🥤🥤', url);
+  return { image: url };
+}
+
 function errorHandler(error, request, response, next) {
   console.error(error);
   response.status(500).json({
@@ -95,14 +105,6 @@ function notFoundHandler(request, response) {
   });
 }
 
-client.connect() //<<--keep in server.js
-  .then(() => {
-    console.log('PG connected!');
-    app.listen(PORT, () => console.log(`App is listening on ${PORT}`)); //<<--these are tics not single quotes
-  })
-  .catch(err => {
-    throw `PG error!:  ${err.message}`;//<<--these are tics not single quotes
-  });
 
 function workout(results) {
   this.workout_date = workout_date;
@@ -113,3 +115,11 @@ function workout(results) {
   this.weight_used = weight_used;
 }
 
+client.connect() //<<--keep in server.js
+  .then(() => {
+    console.log('PG connected!');
+    app.listen(PORT, () => console.log(`App is listening on ${PORT}`)); //<<--these are tics not single quotes
+  })
+  .catch(err => {
+    throw `PG error!:  ${err.message}`;//<<--these are tics not single quotes
+  });
