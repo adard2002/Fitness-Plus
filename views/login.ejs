@@ -6,7 +6,7 @@
     <title>Mystery Project</title>
     <!-- <meta name="description" content=""> -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" href="/css/reset.css">
   </head>
   <body>
@@ -15,32 +15,57 @@
           <h1 style="font-size: 50px;">Mystery Project</h1>
           <nav class="navbar navbar-default" role="navigation">           
             <ul class="nav navbar-nav">
-                <li><a href="/">Home</a></li>
-                <li><a href="/login">Your Workouts</a></li>
+                <li ><a class="navRadius" href="/">Home</a></li>
+                <li><a class="navRadius" href="/login">Your Workouts</a></li>
                 <!-- <li><a href="/books/2">Book</a></li> -->   </ul>    
         </nav>
     </header>
 
     
-    <form action="/workout" method="GET">
-        <div class="imgcontainer">
-          <img src="img_avatar2.png" alt="Avatar" class="avatar">
-        </div>
-        <div class="container">
-          <label for="uname"><b>Username</b></label>
-          <input type="text" placeholder="Enter Username" name="uname" required>
-          <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw" required>
-          <button type="submit">Login</button>
-          <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
-          </label>
-        </div>
-        <div class="container" style="background-color:#f1f1f1">
-          <button type="button" class="cancelbtn">Cancel</button>
-          <span class="psw">Forgot <a href="#">password?</a></span>
+    <div class="container">
+      <form action="/action_page.php">
+        <div class="row">
+          <h2 class="loginHeader">Login with Social Media or Manually</h2>
+          <div class="vl">
+            <span class="vl-innertext">or</span>
+          </div>
+    
+          <div class="col">
+            <a href="#" class="fb btn">
+              <i class="fa fa-facebook fa-fw"></i> Login with Facebook
+             </a>
+            <a href="#" class="twitter btn">
+              <i class="fa fa-twitter fa-fw"></i> Login with Twitter
+            </a>
+            <a href="#" class="google btn"><i class="fa fa-google fa-fw">
+              </i> Login with Google+
+            </a>
+          </div>
+    
+          <div class="col">
+            <div class="hide-md-lg">
+              <p>Or sign in manually:</p>
+            </div>
+    
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Login">
+          </div>
+          
         </div>
       </form>
+    </div>
+    
+    <div class="bottom-container">
+      <div class="row">
+        <div class="col">
+          <a href="#" style="color:white" class="btn">Sign up</a>
+        </div>
+        <div class="col">
+          <a href="#" style="color:white" class="btn">Forgot password?</a>
+        </div>
+      </div>
+    </div>
 
 
     <script

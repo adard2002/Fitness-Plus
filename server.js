@@ -53,7 +53,6 @@ app.get('/searches/show', (request, response) => {
   response.render('pages/searches/show'); //do not include a / before pages or it will say that it is not in the views folder
 });
 
-
 //Express Middleware
 app.use(express.urlencoded({ extended: true }));
 
