@@ -3,9 +3,11 @@ DROP TABLE IF EXISTS exercises;
 DROP TABLE IF EXISTS username;
 
 CREATE TABLE exercises (
-    exercise_id SERIAL PRIMARY KEY,
-    exercise_name VARCHAR(255) NOT NULL,
-    category VARCHAR(255) NOT NULL
+    exercise_id INT PRIMARY KEY
+    , exercise_name VARCHAR(255) NOT NULL
+    , category VARCHAR(255) NOT NULL
+    , workout_desc VARCHAR(255)
+    , equipment VARCHAR(255)
 );
 
 
@@ -16,14 +18,12 @@ CREATE TABLE username (
 
 
 
-CREATE TABLE userWorkout (
+CREATE TABLE userExercise (
   id SERIAL PRIMARY KEY
   , username VARCHAR(255) REFERENCES username (username)
-  , workout_id INTEGER REFERENCES exercises (exercise_id)
+  , exercise_id INTEGER REFERENCES exercises (exercise_id)
 --  , startDate DATE NOT NULL
 --  , weight_used DECIMAL(10,2)
-  , workout_desc VARCHAR(255)
-  , equipment VARCHAR(255)
 );
 
 -- --  seed info
