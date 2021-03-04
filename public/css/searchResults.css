@@ -74,6 +74,7 @@ div {
   height: 300px;
   border-radius: 5px;
   background-color: gainsboro;
+  padding-bottom: 30px;
 }
 
 .save-this-workout {
