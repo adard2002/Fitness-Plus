@@ -7,9 +7,6 @@ require('dotenv').config();
 // Application Dependencies
 const express = require('express');
 
-var jsdom = require("jsdom");
-var JSDOM = jsdom.JSDOM;
-
 // const cors = require('cors');
 const pg = require('pg');
 pg.defaults.ssl = process.env.NODE_ENV === 'production' && { rejectUnauthorized: false };
