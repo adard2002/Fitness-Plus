@@ -7,8 +7,10 @@ body {
 }
 
 h1 {
-  height: 60px;
+  font-size: 50px;
+  height: 20px;
   text-align: center;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0), 0 0 15px rgb(233, 162, 104);
   color: white;
   background-color:rgb(105, 65, 65);
 }
@@ -24,7 +26,7 @@ nav {
   text-align: center;
 }
 
-a:link, a:visited {
+a:link {
   background-color: darkgrey;
   color: white;
   padding: 14px 25px;
@@ -104,9 +106,17 @@ input:hover,
   color: white;
 }
 
+.fb:hover {
+  background-color: #466ab8;
+}
+
 .twitter {
   background-color: #55ACEE;
   color: white;
+}
+
+.twitter:hover {
+  background-color: #58b7ff;
 }
 
 .google {
@@ -114,6 +124,9 @@ input:hover,
   color: white;
 }
 
+.google:hover {
+  background-color: #fa5540;
+}
 /* style the submit button */
 input[type=submit] {
   background-color: #d6925a;
