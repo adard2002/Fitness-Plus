@@ -11,7 +11,6 @@ const pg = require('pg');
 pg.defaults.ssl = process.env.NODE_ENV === 'production' && { rejectUnauthorized: false };
 const superagent = require('superagent');
 const methodOverride = require('method-override');
-const { request, response } = require('express');
 
 // Database Setup
 if (!process.env.DATABASE_URL) {
@@ -38,7 +37,15 @@ app.get('/login', (request, response) => {
 });
 
 app.get('/workout', (request, response) => {
-  response.render('./workout');
+  response.render('workout');
+});
+
+app.get('/searches', workoutHandler);
+app.post('/searches', workoutHandler); //has to match the form action on the new.js for the /searches
+
+
+app.get('/searches/new', (request, response) => {
+  response.render('pages/searches/new'); //do not include a / before pages or it will say that it is not in the views folder
 });
 app.get('/test', (request, response) => {
   validateUser('Adara')
@@ -83,6 +90,27 @@ app.use('*', (request, response) => response.send('Sorry, that route does not ex
 //     });
 // }
 
+function workoutHandler(request, response) {
+  let url = 'https://wger.de/api/v2/exerciseinfo/';
+  
+  // if (request.body.searchType === 'abs') { url += `+name:${request.body.searchType}`; }
+  console.log('request aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', url);
+  superagent.get(url)
+ 
+    .query({
+      language: 2,
+    })
+    .then((workoutsResponse) => workoutsResponse.body.results.map(workoutResult => new Workout(workoutResult)))
+    .then(workouts => {
+      console.log('workouts', workouts);
+      response.render('pages/searches/show', {workouts: workouts});
+    }) //do not include a / before pages or it will say that it is not in the views folder and do not include the .ejs at the end of show
+    .catch(err => {
+      console.log(err);
+      errorHandler(err, request, response);
+    });
+
+} // end workoutHandler function
 
 //Has to be after stuff loads too
 app.use(notFoundHandler);
@@ -171,13 +199,12 @@ function notFoundHandler(request, response) {
 }
 
 
-function workout(results) {
-  this.workout_date = workout_date;
-  this.week_day = week_day;
-  this.exercise = exercise;
-  this.focus_area = focus_area;
-  this.liift_round = liift_round;
-  this.weight_used = weight_used;
+function Workout(workoutData) {
+  this.name = workoutData.name;
+  this.category = workoutData.category.name;
+  this.description = workoutData.description;
+  this.equipment = workoutData.equipment.name;
+  console.log('workoutData', workoutData);
 }
 
 client.connect() //<<--keep in server.js
@@ -188,3 +215,8 @@ client.connect() //<<--keep in server.js
   .catch(err => {
     throw `PG error!:  ${err.message}`;//<<--these are tics not single quotes
   });
+
+
+
+
+
