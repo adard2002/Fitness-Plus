@@ -89,17 +89,15 @@ app.use('*', (request, response) => response.send('Sorry, that route does not ex
 
 function workoutHandler(request, response) {
   let url = 'https://wger.de/api/v2/exerciseinfo/';
-  
   // if (request.body.searchType === 'abs') { url += `+name:${request.body.searchType}`; }
   console.log('request aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', url);
   superagent.get(url)
- 
     .query({
       language: 2,
     })
     .then((workoutsResponse) => workoutsResponse.body.results.map(workoutResult => new Workout(workoutResult)))
     .then(workouts => {
-      console.log('workouts', workouts);
+      // console.log('workouts', workouts);
       response.render('pages/searches/show', {workouts: workouts});
     }) //do not include a / before pages or it will say that it is not in the views folder and do not include the .ejs at the end of show
     .catch(err => {
@@ -138,10 +136,10 @@ function notFoundHandler(request, response) {
 
 function Workout(workoutData) {
   this.name = workoutData.name;
-  this.category = workoutData.category.name;
+  this.category = workoutData.category['name'];
   this.description = workoutData.description;
-  this.equipment = workoutData.equipment.name;
-  console.log('workoutData', workoutData);
+  this.equipment = workoutData.equipment[0] && workoutData.equipment[0].name;
+  // console.log('equipment--------------', workoutData.equipment);
 }
 
 client.connect() //<<--keep in server.js
