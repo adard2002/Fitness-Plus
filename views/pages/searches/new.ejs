@@ -30,13 +30,14 @@
 
     <form class="workout-view-container" action="/searches" method="POST">  <!-- action has to be "/searches" which matches the server.js in the app.post('/searches', booksHandler); -->
         <fieldset>
-         <span font-size="20px">Abs</span> <input type="radio" name="searchType" value="abs"/>
-         <span font-size="20px">Arms</span><input type="radio" name="searchType" value="arms" />
-         <span font-size="20px">Back</span><input type="radio" name="searchType" value="back" />
-         <span font-size="20px">Calves</span><input type="radio" name="searchType" value="calves" />
-         <span font-size="20px">Chest</span><input type="radio" name="searchType" value="chest" />
-         <span font-size="20px">Legs</span><input type="radio" name="searchType" value="legs" />
-         <span font-size="20px">Shoulders</span><input type="radio" name="searchType" value="shoulders" />
+         <label font-size="20px"> Abs <input type="radio" name="searchType" value="abs"/></label>
+         <label font-size="20px"> Arms <input type="radio" name="searchType" value="arms" /></label>
+         <label font-size="20px"> Back <input type="radio" name="searchType" value="back" /></label>
+         <label font-size="20px"> Calves <input type="radio" name="searchType" value="calves" /></label>
+         <label font-size="20px"> Chest <input type="radio" name="searchType" value="chest" /></label>
+         <label font-size="20px"> Legs <input type="radio" name="searchType" value="legs" /></label>
+         <label font-size="20px"> Shoulders <input type="radio" name="searchType" value="shoulders" /></label>
+         <!-- <label font-size="20px">All</span><input type="radio" name="searchAll" value="all" /> -->
          <!-- <input type="text" name="searchQuery" /> -->
         </fieldset>
         <button class = "api--button" type="submit">Search</button>
