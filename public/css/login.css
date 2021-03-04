@@ -1,7 +1,12 @@
+/* ((((((((( GOES TO THE LOGIN.EJS FILE ))))))))) */
+
 * {
   box-sizing: border-box;
 }
 
+/* =============================================== */
+/* --------- What shows across all pages --------- */
+/* =============================================== */
 body {
   background-color: rgb(143, 90, 90);
 }
@@ -49,7 +54,6 @@ div {
 }
 
 li {
-  margin-left: 15px;
   display: inline-block;
   justify-content: space-around;
   border-top:darkgrey;
@@ -63,8 +67,9 @@ li {
 
 
 
-
-/* ========= LOGIN CONTAINER ========= */
+/* =================================== */
+/* --------- LOGIN CONTAINER --------- */
+/* =================================== */
 /* Text above the login details */
 .loginHeader {
   color: whitesmoke;

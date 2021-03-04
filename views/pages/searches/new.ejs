@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 
 <html>
-   <head>
-   
-   </head>
+    <head>
+        <meta charset="utf-8">
+        <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+        <title>Mystery Project</title>
+        <!-- <meta name="description" content=""> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/css/reset.css">
+        <!-- <link rel="stylesheet" href="/css/style.css"> -->
+        <link rel="stylesheet" href="/css/workoutSearch.css">
+      </head>
    <body>
 
     <header>
-    <ul class="nav navbar-nav">
-        <!-- <li><a href="/">Home</a></li>
-        <li><a href="/searches/new">Search</a></li> -->
-    </ul>
-    <nav>
- 
-    </nav>
+          <h1>Mystery Project</h1>
+          <nav class="navbar navbar-default" role="navigation">           
+            <ul class="nav navbar-nav">
+                <li><a class="navRadius" href="/">Home</a></li>
+                <li><a class="navRadius" href="/searches/new">Search Workouts</a></li>
+                <li><a class="navRadius" href="/workout">My Workouts</a></li>
+                <li><a class="navRadius" href="/login">Login</a></li>
+                <!-- <li><a href="/books/2">Book</a></li> -->   </ul>    
+        </nav>
     </header>
 
 
     <form class="workout-view-container" action="/searches" method="POST">  <!-- action has to be "/searches" which matches the server.js in the app.post('/searches', booksHandler); -->
-        <h1 padding=20px>Workout Search Form</h1>
         <fieldset>
          <span font-size="20px">Abs</span> <input type="radio" name="searchType" value="abs"/>
          <span font-size="20px">Arms</span><input type="radio" name="searchType" value="arms" />

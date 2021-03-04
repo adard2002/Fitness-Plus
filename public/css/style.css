@@ -53,7 +53,6 @@ div {
 li {
   box-shadow: 0 2px 8px black;
 
-  margin-left: 15px;
   display: inline-block;
   justify-content: space-around;
   border-top:darkgrey;

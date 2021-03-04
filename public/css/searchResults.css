@@ -1,5 +1,4 @@
-/* ((((((((( GOES TO THE WORKOUT.EJS FILE ))))))))) */
-
+/* ((((((((( GOES TO THE SHOW.EJS FILE ))))))))) */
 
 /* =============================================== */
 /* --------- What shows across all pages --------- */
@@ -12,7 +11,7 @@ h1 {
   font-size: 50px;
   height: 20px;
   text-align: center;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0), 0 0 15px rgb(233, 162, 104);
+  text-shadow: 2px 2px 5px rgba(37, 238, 221, 0), 0 0 15px rgb(233, 162, 104);
   color: white;
   background-color:rgb(105, 65, 65);
 }
@@ -59,3 +58,36 @@ li {
   border-radius: 5px;
 }
 
+/* ============================================= */
+/* --------- Boxes around each workout --------- */
+/* ============================================= */
+h2 {
+  font-size: 20px;
+  text-decoration: underline;
+}
+
+div {
+  justify-content: space-around;
+  text-align: center;
+  display: inline-block;
+  width: 360px;
+  height: 300px;
+  border-radius: 5px;
+  background-color: gainsboro;
+}
+
+.save-this-workout {
+
+    background-color: #d6925a;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 25px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.api--button:hover {
+    background-color: rgb(233, 162, 104);
+  }

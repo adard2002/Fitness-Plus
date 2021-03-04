@@ -1,4 +1,8 @@
+/* ((((((((( GOES TO THE INDEX.EJS FILE ))))))))) */
 
+/* =============================================== */
+/* --------- What shows across all pages --------- */
+/* =============================================== */
 body {
   background-color: rgb(143, 90, 90);
 }
@@ -45,7 +49,6 @@ div {
 }
 
 li {
-  margin-left: 15px;
   display: inline-block;
   justify-content: space-around;
   border-top:darkgrey;
@@ -55,33 +58,10 @@ li {
   border-radius: 5px;
 }
 
-/* nav {
-  text-align: center;
-  justify-content: space-around;
-  background-color:rgb(105, 65, 65);
-}
 
-li {
-  font-size: 25px;
-  height: 25px;
-  display: inline-block;
-} */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ========= Slideshow/Carousel =========*/
+/* ====================================== */
+/* --------- Slideshow/Carousel --------- */
+/* ====================================== */
 /* Image/Slideshow Image Sizes */
 img {
   height: 400px;
