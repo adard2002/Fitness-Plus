@@ -48,7 +48,15 @@ app.get('/searches/new', (request, response) => {
   response.render('pages/searches/new'); //do not include a / before pages or it will say that it is not in the views folder
 });
 app.get('/test', (request, response) => {
-  dbGetWorkoutByUser('Nathan')
+  validateUser('demo');
+  dbGetWorkoutByUser('demo')
+  //    new Workout({
+  //   id:1
+  //   , category:13
+  //   , name:'deadlift'
+  //   , description:'test abc123 and stuff'
+  //   , equipment: 'marshmallow'
+  // }))
     .then(res => response.send(res))
     .catch(e => errorHandler(e,request,response));
 });
@@ -148,7 +156,6 @@ function dbGetWorkoutByUser (username){
 }
 
 function validateUser(username){
-  let result;
   const query = {
     // name: 'getUserByName',
     text: `SELECT username
@@ -173,7 +180,6 @@ function validateUser(username){
 }
 
 function createUser(username){
-  let result;
   const query = {
     name: 'createUserByName',
     text: `INSERT INTO username (username)
@@ -184,6 +190,58 @@ function createUser(username){
   return client.query(query)
     .then(res => console.log('🥚🥚🥚', res.rows[0]));
 }
+
+function addWorkoutToUser(workout){
+  const query = {
+    text: `INSERT INTO userExercise (username, exercise_id)
+    VALUES ('demo', $1)
+    RETURNING *`,
+    values: [workout.id]
+  };
+  return validateExercise(workout).then( res => {
+    return client.query(query)
+      .then(res => {
+        console.log('egg egg egg', res.rows);
+        return res.rows;
+      });
+  });
+}
+
+function validateExercise(workout){
+  const query = {
+    // name: 'getUserByName',
+    text: `SELECT *
+      FROM exercises
+      WHERE exercises.exercise_id = $1`,
+    values: [workout.id]
+  };
+  return client.query(query)
+    .then(res => {
+      console.log('📚📚📚',res.rows[0]);
+      if (res.rows.length === 1){
+        return true;
+      }else{
+        return createExercise(workout)
+          .then(res => {
+            return false;
+          });
+      }
+    });
+  // console.log('❤❤❤',result);
+// return result;
+}
+
+function createExercise(workout){
+  const query = {
+    text: `INSERT INTO exercise (exercise_id, exercise_name, category, workout_desc, equipment)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *`,
+    values: [workout.id, workout.name, workout.category, workout.description, workout.equipment]
+  };
+  return client.query(query)
+    .then(res => console.log('chimkin nugget', res.rows[0]));
+}
+
 
 function errorHandler(error, request, response, next) {
   console.error(error);
