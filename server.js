@@ -6,6 +6,10 @@ require('dotenv').config();
 
 // Application Dependencies
 const express = require('express');
+
+var jsdom = require("jsdom");
+var JSDOM = jsdom.JSDOM;
+
 // const cors = require('cors');
 const pg = require('pg');
 pg.defaults.ssl = process.env.NODE_ENV === 'production' && { rejectUnauthorized: false };
@@ -53,6 +57,8 @@ app.get('/test', (request, response) => {
     .catch(e => errorHandler(e,request,response));
 });
 
+app.post('/saves', saveWorkoutHandler);
+
 //Express Middleware
 app.use(express.urlencoded({ extended: true }));
 
@@ -91,12 +97,13 @@ app.use('*', (request, response) => response.send('Sorry, that route does not ex
 // }
 
 function workoutHandler(request, response) {
+  const category = request.body.searchType;
   let url = 'https://wger.de/api/v2/exercise/';
   console.log('request aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', url);
   superagent.get(url)
     .query({
       language: 2,
-      category: 10
+      category: category
     })
     .then((workoutsResponse) => workoutsResponse.body.results.map(workoutResult => {
       console.log('workoutsResponse', workoutsResponse);
@@ -113,6 +120,23 @@ function workoutHandler(request, response) {
     });
 
 } // end workoutHandler function
+
+function saveWorkoutHandler(request, response) {
+  const { exercise_id, exercise_name, category, workout_desc, equipment } = request.body;
+  console.log('request body', request.body);
+  const SQL = `INSERT INTO bookstable (exercise_id, exercise_name, category, workout_desc, equipment) VALUES ($1, $2, $3, $4, $5) RETURNING id;`;  //<<--make sure there is a semi colon before the back tic
+  const parameters = [exercise_id, exercise_name, category, workout_desc, equipment];
+  return client.query(SQL, parameters)
+    .then(result => {
+      let id = result.rows[0].id;
+      console.log('id', id);
+      response.redirect(`/saves/${id}`);
+    })
+    .catch(err => {
+      errorHandler(err, request, response);
+      console.err('Error in saveWorkoutHandler', err);
+    });
+} // end saveWorkoutHandler function
 
 //Has to be after stuff loads too
 app.use(notFoundHandler);
