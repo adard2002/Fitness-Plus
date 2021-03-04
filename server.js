@@ -48,7 +48,7 @@ app.get('/searches/new', (request, response) => {
   response.render('pages/searches/new'); //do not include a / before pages or it will say that it is not in the views folder
 });
 app.get('/test', (request, response) => {
-  validateUser('Adara')
+  dbGetWorkoutByUser('Nathan')
     .then(res => response.send(res))
     .catch(e => errorHandler(e,request,response));
 });
@@ -127,25 +127,24 @@ function getAvatar(seed) {
 }
 
 function dbGetWorkoutByUser (username){
-  let result;
   const query = {
     name: 'getWorkoutByUser',
     text: `SELECT 
-        t2.username
-        , t3.exercise_name
-        , t3.category
-        , t3.workout_desc
-        , t3.equipment
-      FROM userWorkout t1
+        t3.exercise_id AS id
+        , t3.exercise_name AS name
+        , t3.category AS category
+        , t3.workout_desc AS description
+        , t3.equipment AS equipment
+      FROM userExercise t1
       INNER JOIN username t2
       ON t1.username = t2.username
       INNER JOIN exercises t3
-      ON t1.workout_id = t3.exercise_id
+      ON t1.exercise_id = t3.exercise_id
       WHERE t2.username = $1`,
     values: [username]
   };
-
-  return client.query(query);
+  // returns array of Workout objects
+  return client.query(query).then(res => res.rows.map(obj => new Workout(obj)));
 }
 
 function validateUser(username){

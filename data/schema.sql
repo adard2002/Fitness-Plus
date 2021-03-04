@@ -26,11 +26,11 @@ CREATE TABLE userExercise (
 --  , weight_used DECIMAL(10,2)
 );
 
--- --  seed info
--- INSERT INTO username (username) VALUES('Nathan');
+--  seed info
+INSERT INTO username (username) VALUES('Nathan');
 
--- INSERT INTO exercises (exercise_name, category)
---   VALUES('deadlift', '13');
+INSERT INTO exercises (exercise_id, exercise_name, category, workout_desc, equipment)
+  VALUES(1, 'deadlift', '13', 'test description', 'bigstring,longerstring');
 
--- INSERT INTO userWorkout (username, workout_id, workout_desc, equipment)
---   VALUES('Nathan', 1, 'test workout', 'dumbybell');
+INSERT INTO userExercise (username, exercise_id)
+  VALUES('Nathan', 1);
