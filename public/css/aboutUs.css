@@ -63,8 +63,19 @@ li {
 
 
 
+/* ==================================== */
+/* --------- About Us Changes --------- */
+/* ==================================== */
+img {
+  height: 350px;
+  width: 350px;
+  text-align: center;
+}
 
-
+h3 {
+  color:rgb(157, 191, 255);
+  font-size: 25px;
+}
 
 .socialLinks {
   font-size: 15px;
