@@ -91,17 +91,17 @@ app.use('*', (request, response) => response.send('Sorry, that route does not ex
 // }
 
 function workoutHandler(request, response) {
-  // const category = category.id;
   let url = 'https://wger.de/api/v2/exercise/';
   console.log('request aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', url);
   superagent.get(url)
     .query({
       language: 2,
-      // category: 10
+      category: 10
     })
     .then((workoutsResponse) => workoutsResponse.body.results.map(workoutResult => {
-      new Workout(workoutResult);
       console.log('workoutsResponse', workoutsResponse);
+      return new Workout(workoutResult);
+
     }))
     .then(workouts => {
       console.log('workouts', workouts);
@@ -203,8 +203,6 @@ function notFoundHandler(request, response) {
 
 function Workout(workoutData) {
   this.name = workoutData.name;
-  // this.id = workoutData.id;
-  // this.category = workoutData.category['name'];
   this.category = workoutData.category;
   this.description = workoutData.description;
   this.equipment = workoutData.equipment[0]; // && workoutData.equipment[0].name;
