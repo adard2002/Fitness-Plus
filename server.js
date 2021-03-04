@@ -134,8 +134,8 @@ function dbGetWorkoutByUser (username){
         t2.username
         , t3.exercise_name
         , t3.category
-        , t1.workout_desc
-        , t1.equipment
+        , t3.workout_desc
+        , t3.equipment
       FROM userWorkout t1
       INNER JOIN username t2
       ON t1.username = t2.username
@@ -202,11 +202,12 @@ function notFoundHandler(request, response) {
 
 
 function Workout(workoutData) {
+  this.id = workoutData.id;
   this.name = workoutData.name;
-  this.category = workoutData.category;
+  this.category = workoutCategory[workoutData.category] || workoutData.category;
   this.description = workoutData.description;
-  this.equipment = workoutData.equipment[0]; // && workoutData.equipment[0].name;
-  console.log('workoutData--------------', workoutData);
+  this.equipment = Array.isArray(workoutData.equipment)?workoutData.equipment.map(id => workoutEquipment[id]).join():workoutData.equipment;
+  // console.log('equipment--------------', workoutData.equipment);
 }
 
 client.connect() //<<--keep in server.js
@@ -217,3 +218,27 @@ client.connect() //<<--keep in server.js
   .catch(err => {
     throw `PG error!:  ${err.message}`;//<<--these are tics not single quotes
   });
+
+// Enumerations
+const workoutCategory = {
+  10: 'Abs'
+  , 8: 'Arms'
+  , 12: 'Back'
+  , 14: 'Calves'
+  , 11: 'Chest'
+  , 9: 'Legs'
+  , 13: 'Shoulders'
+};
+
+const workoutEquipment = {
+  1: 'Barbell'
+  , 8: 'Bench'
+  , 3: 'Dumbbell'
+  , 4: 'Gym Mat'
+  , 9: 'Incline Bench'
+  , 10: 'Kettlebell'
+  , 7: 'None'
+  , 6: 'Pull-Up Bar'
+  , 5: 'Swiss Ball'
+  , 2: 'SZ-Bar'
+};
