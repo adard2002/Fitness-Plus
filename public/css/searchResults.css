@@ -9,11 +9,10 @@ body {
 
 h1 {
   font-size: 50px;
-  height: 20px;
+  height: 50px;
   text-align: center;
   text-shadow: 2px 2px 5px rgba(37, 238, 221, 0), 0 0 15px rgb(233, 162, 104);
   color: white;
-  background-color:rgb(105, 65, 65);
 }
 
 header {
@@ -67,17 +66,18 @@ h2 {
 }
 
 div {
-  justify-content: space-around;
   text-align: center;
+  justify-content: space-around;
   display: inline-block;
   width: 360px;
   height: 300px;
   border-radius: 5px;
   background-color: gainsboro;
+  padding-bottom: 30px;
+  box-shadow: rgb(46, 46, 46) 2px 5px 2px;
 }
 
 .save-this-workout {
-
     background-color: #d6925a;
     color: white;
     cursor: pointer;
