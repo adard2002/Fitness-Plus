@@ -1,16 +1,21 @@
 body {
-  background-color: rgb(143, 90, 90);
+  background-color: rgb(95, 90, 90);
 }
 
 h1 {
+  font-family: 'Staatliches', cursive;
   height: 60px;
   text-align: center;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0), 0 0 15px rgb(233, 162, 104);
   color: white;
-  background-color:rgb(105, 65, 65);
+  background-color:rgb(199, 12, 12);
+
 }
 
 header {
-  background-color:rgb(105, 65, 65);
+  background-color:rgb(199, 12, 12);
+  box-shadow: 0 4px 8px black;
+
 }
 
 nav {
@@ -32,7 +37,8 @@ a:link, a:visited {
 }
 
 a:hover, a:active {
-  background-color: rgb(233, 162, 104);
+  box-shadow: inset 0 0 50px black;
+  background-color: rgb(235, 235, 235);
 }
 
 div {
@@ -42,6 +48,8 @@ div {
 }
 
 li {
+  box-shadow: 0 2px 8px black;
+
   margin-left: 15px;
   display: inline-block;
   justify-content: space-around;
@@ -62,6 +70,7 @@ li {
 } */
 
 img {
+  box-shadow: 0 4px 8px black;
   height: 400px;
   width: 600px;
 }
