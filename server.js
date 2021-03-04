@@ -40,7 +40,11 @@ app.get('/login', (request, response) => {
 app.get('/workout', (request, response) => {
   response.render('./workout');
 });
-
+app.get('/test', (request, response) => {
+  validateUser('Adara')
+    .then(res => response.send(res))
+    .catch(e => errorHandler(e,request,response));
+});
 
 //Express Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -111,9 +115,45 @@ function dbGetWorkoutByUser (username){
     values: [username]
   };
 
-  client.query(query)
-    .then(res => result = res);
-  return result;
+  return client.query(query);
+}
+
+function validateUser(username){
+  let result;
+  const query = {
+    // name: 'getUserByName',
+    text: `SELECT username
+      FROM username
+      WHERE username.username = $1`,
+    values: [username]
+  };
+  return client.query(query)
+    .then(res => {
+      console.log('📚📚📚',res.rows[0]);
+      if (res.rows.length === 1){
+        return true;
+      }else{
+        return createUser(username)
+          .then(res => {
+            return false;
+          });
+      }
+    });
+  // console.log('❤❤❤',result);
+  // return result;
+}
+
+function createUser(username){
+  let result;
+  const query = {
+    name: 'createUserByName',
+    text: `INSERT INTO username (username)
+      VALUES ($1)
+      RETURNING *`,
+    values: [username]
+  };
+  return client.query(query)
+    .then(res => console.log('🥚🥚🥚', res.rows[0]));
 }
 
 function errorHandler(error, request, response, next) {
