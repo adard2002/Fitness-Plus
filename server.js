@@ -53,8 +53,8 @@ app.get('/test', (request, response) => {
     .catch(e => errorHandler(e,request,response));
 });
 
-app.get('/searches/aboutUs', (request, response) => {
-  response.render('pages/searches/aboutUs');
+app.get('/aboutUs', (request, response) => {
+  response.render('aboutUs');
 });
 
 //Express Middleware
