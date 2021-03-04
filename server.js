@@ -47,7 +47,11 @@ app.post('/searches', workoutHandler); //has to match the form action on the new
 app.get('/searches/new', (request, response) => {
   response.render('pages/searches/new'); //do not include a / before pages or it will say that it is not in the views folder
 });
-
+app.get('/test', (request, response) => {
+  validateUser('Adara')
+    .then(res => response.send(res))
+    .catch(e => errorHandler(e,request,response));
+});
 
 //Express Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -116,6 +120,66 @@ function getAvatar(seed) {
   const url = `https://avatars.dicebear.com/api/jdenticon/${seed}.svg`;
   //console.log('🥤🥤🥤', url);
   return { image: url };
+}
+
+function dbGetWorkoutByUser (username){
+  let result;
+  const query = {
+    name: 'getWorkoutByUser',
+    text: `SELECT 
+        t2.username
+        , t3.exercise_name
+        , t3.category
+        , t1.workout_desc
+        , t1.equipment
+      FROM userWorkout t1
+      INNER JOIN username t2
+      ON t1.username = t2.username
+      INNER JOIN exercises t3
+      ON t1.workout_id = t3.exercise_id
+      WHERE t2.username = $1`,
+    values: [username]
+  };
+
+  return client.query(query);
+}
+
+function validateUser(username){
+  let result;
+  const query = {
+    // name: 'getUserByName',
+    text: `SELECT username
+      FROM username
+      WHERE username.username = $1`,
+    values: [username]
+  };
+  return client.query(query)
+    .then(res => {
+      console.log('📚📚📚',res.rows[0]);
+      if (res.rows.length === 1){
+        return true;
+      }else{
+        return createUser(username)
+          .then(res => {
+            return false;
+          });
+      }
+    });
+  // console.log('❤❤❤',result);
+  // return result;
+}
+
+function createUser(username){
+  let result;
+  const query = {
+    name: 'createUserByName',
+    text: `INSERT INTO username (username)
+      VALUES ($1)
+      RETURNING *`,
+    values: [username]
+  };
+  return client.query(query)
+    .then(res => console.log('🥚🥚🥚', res.rows[0]));
 }
 
 function errorHandler(error, request, response, next) {
