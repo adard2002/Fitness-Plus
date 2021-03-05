@@ -11,7 +11,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/css/reset.css">
         <!-- <link rel="stylesheet" href="/css/style.css"> -->
-        <link rel="stylesheet" href="/css/searchResults.css">
+        <link rel="stylesheet" href="/css/workout.css">
 </head>
 
 <body>
@@ -32,7 +32,7 @@
   
   <h1>There are <%= workouts.length %> workouts for you to view</h1> 
 
-
+    <section class="card-container">
     <% workouts.forEach( workout => { %>  
 
         <div class="workout-results-container">
@@ -40,15 +40,18 @@
             <p><strong>Workout Equipment:</strong><%= workout.equipment %></p>
             <div class="workoutDescription">Workout Description: <%- workout.description %></div>
 
-            <form action="/workout" method="POST">
+                
                 <input type="hidden" name="id" value='<%= workout.id %>' />
                 <input type="hidden" name="name" value='<%= workout.name %>' />
                 <input type="hidden" name="category"   value='<%= workout.category %>' />
                 <input type="hidden" name="equipment" value='<%= workout.equipment %>'/>
                 <input type="hidden"  name="description" value="<%= workout.description %>" />
-            </form>       
+                <!-- <section>10</section> -->
+                 
         </div>
-<% }) %> 
+    
+    <% }) %> 
+    </section>
 
 
 
