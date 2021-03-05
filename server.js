@@ -6,6 +6,7 @@ require('dotenv').config();
 
 // Application Dependencies
 const express = require('express');
+
 // const cors = require('cors');
 const pg = require('pg');
 pg.defaults.ssl = process.env.NODE_ENV === 'production' && { rejectUnauthorized: false };
@@ -61,6 +62,8 @@ app.get('/test', (request, response) => {
     .catch(e => errorHandler(e,request,response));
 });
 
+
+
 //Express Middleware
 app.use(express.urlencoded({ extended: true }));
 
@@ -99,12 +102,13 @@ app.use('*', (request, response) => response.send('Sorry, that route does not ex
 // }
 
 function workoutHandler(request, response) {
+  const category = request.body.searchType;
   let url = 'https://wger.de/api/v2/exercise/';
   console.log('request aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', url);
   superagent.get(url)
     .query({
       language: 2,
-      category: 10
+      category: category
     })
     .then((workoutsResponse) => workoutsResponse.body.results.map(workoutResult => {
       console.log('workoutsResponse', workoutsResponse);

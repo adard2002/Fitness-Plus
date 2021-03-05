@@ -24,20 +24,23 @@
               <li><a class="navRadius" href="/searches/new">Search Workouts</a></li>
               <li><a class="navRadius" href="/workout">My Workouts</a></li>
               <li><a class="navRadius" href="/login">Login</a></li>
-              <!-- <li><a href="/books/2">Book</a></li> -->   </ul>    
+              </ul>    
       </nav>
   </header>
 
-    <h1>There are <%= workouts.length %> workouts for you to view</h1> 
+  
+  <h1>There are <%= workouts.length %> workouts for you to view</h1> 
+
 
     <% workouts.forEach( workout => { %>  
+
         <div class="workout-results-container">
-            <h2>Workout Name: <%= workout.name %></h2>
-            <h3>Workout Category: <%= workout.category %></h3>
-            <p>Workout Equipment: <%= workout.equipment %></p>
+            <h2><%= workout.category %>:  <%= workout.name %></h2>
+            <p><strong>Workout Equipment:</strong><%= workout.equipment %></p>
             <div class="workoutDescription">Workout Description: <%- workout.description %></div>
 
             <form action="/saves" method="POST">
+                <input type="hidden" name="id" value='<%= workout.id %>' />
                 <input type="hidden" name="name" value='<%= workout.name %>' />
                 <input type="hidden" name="category"   value='<%= workout.category %>' />
                 <input type="hidden" name="equipment" value='<%= workout.equipment %>'/>
