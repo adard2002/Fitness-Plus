@@ -1,37 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="/css/reset.css" />
-	<link rel="stylesheet" href="/css/workout.css" />
-	<!-- <link rel="stylesheet" href="/css/style.css" /> -->
-
-	<title>FitNess Plus</title>
-
+        <meta charset="utf-8">
+        <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+        <title>FitNess Plus</title>
+        <!-- <meta name="description" content=""> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/css/reset.css">
+        <!-- <link rel="stylesheet" href="/css/style.css"> -->
+        <link rel="stylesheet" href="/css/searchResults.css">
 </head>
+
 <body>
-	<header>
-		<h1>FitNess Plus</h1>
-		<nav class="navbar navbar-default" role="navigation">           
-			<ul class="nav navbar-nav">
-					<li><a class="navRadius" href="/">Home</a></li>
-					<li><a class="navRadius" href="/searches/new">Search Workouts</a></li>
-					<li><a class="navRadius" href="/workout">My Workouts</a></li>
-					<li><a class="navRadius" href="/aboutUs">About Us</a></li>
-					<li><a class="navRadius" href="/login">Login</a></li>
-					<!-- <li><a href="/books/2">Book</a></li> -->   </ul>    
-	</nav>
-</header>
 
-<div class = "workout-placeholder">
+    <header>
+        <h1>FitNess Plus</h1>
+        <nav class="navbar navbar-default" role="navigation">           
+          <ul class="nav navbar-nav">
+              <li><a class="navRadius" href="/">Home</a></li>
+              <li><a class="navRadius" href="/searches/new">Search Workouts</a></li>
+              <li><a class="navRadius" href="/workout">My Workouts</a></li>
+              <li><a class="navRadius" href="/aboutUs">About Us</a></li>
+              <li><a class="navRadius" href="/login">Login</a></li>
+              </ul>    
+      </nav>
+  </header>
 
-</div>
-	
-<script></script>
+  
+  <h1>There are <%= workouts.length %> workouts for you to view</h1> 
 
-</body>
+
+    <% workouts.forEach( workout => { %>  
+
+        <div class="workout-results-container">
+            <h2><%= workout.category %>:  <%= workout.name %></h2>
+            <p><strong>Workout Equipment:</strong><%= workout.equipment %></p>
+            <div class="workoutDescription">Workout Description: <%- workout.description %></div>
+
+            <form action="/workout" method="POST">
+                <input type="hidden" name="id" value='<%= workout.id %>' />
+                <input type="hidden" name="name" value='<%= workout.name %>' />
+                <input type="hidden" name="category"   value='<%= workout.category %>' />
+                <input type="hidden" name="equipment" value='<%= workout.equipment %>'/>
+                <input type="hidden"  name="description" value="<%= workout.description %>" />
+            </form>       
+        </div>
+<% }) %> 
+
+
 
 <footer> </footer>
 
+</body>
 </html>

@@ -37,9 +37,8 @@ app.get('/login', (request, response) => {
   response.render('./login');
 });
 
-app.get('/workout', (request, response) => {
-  response.render('workout');
-});
+app.get('/workout', showWorkouts);
+app.post('/workout', showAddedWorkout);
 
 app.get('/searches', workoutHandler);
 app.post('/searches', workoutHandler); //has to match the form action on the new.js for the /searches
@@ -50,7 +49,7 @@ app.get('/searches/new', (request, response) => {
 });
 app.get('/test', (request, response) => {
   validateUser('demo');
-  dbGetWorkoutByUser('demo')
+  getWorkoutByUser('demo')
   //    new Workout({
   //   id:1
   //   , category:13
@@ -106,19 +105,19 @@ app.use('*', (request, response) => response.send('Sorry, that route does not ex
 function workoutHandler(request, response) {
   const category = request.body.searchType;
   let url = 'https://wger.de/api/v2/exercise/';
-  console.log('request aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', url);
+  // console.log('request aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', url);
   superagent.get(url)
     .query({
       language: 2,
       category: category
     })
     .then((workoutsResponse) => workoutsResponse.body.results.map(workoutResult => {
-      console.log('workoutsResponse', workoutsResponse);
+      // console.log('workoutsResponse', workoutsResponse);
       return new Workout(workoutResult);
 
     }))
     .then(workouts => {
-      console.log('workouts', workouts);
+      // console.log('workouts', workouts);
       response.render('pages/searches/show', {workouts: workouts});
     }) //do not include a / before pages or it will say that it is not in the views folder and do not include the .ejs at the end of show
     .catch(err => {
@@ -127,6 +126,25 @@ function workoutHandler(request, response) {
     });
 
 } // end workoutHandler function
+
+function showWorkouts(request, response) {
+  // console.log('🎆🎆',request.query);
+  const user = request.query.username?request.query.username:'demo';
+  // console.log('✨✨', user);
+  getWorkoutByUser(user).then(res => {
+    const workouts = {workouts:res};
+    response.render('workout', workouts);
+  });
+}
+
+function showAddedWorkout(request, response){
+  // console.log('🧨🧨',request.query);
+  const workout = new Workout(request.body);
+  addWorkoutToUser(workout).then(res => getWorkoutByUser('demo').then(res => {
+    const workouts = {workouts:res};
+    response.render('workout', workouts);
+  }));
+}
 
 //Has to be after stuff loads too
 app.use(notFoundHandler);
@@ -140,7 +158,7 @@ function getAvatar(seed) {
   return { image: url };
 }
 
-function dbGetWorkoutByUser (username){
+function getWorkoutByUser (username){
   const query = {
     name: 'getWorkoutByUser',
     text: `SELECT 
@@ -171,7 +189,7 @@ function validateUser(username){
   };
   return client.query(query)
     .then(res => {
-      console.log('📚📚📚',res.rows[0]);
+      // console.log('📚📚📚',res.rows[0]);
       if (res.rows.length === 1){
         return true;
       }else{
@@ -193,8 +211,8 @@ function createUser(username){
       RETURNING *`,
     values: [username]
   };
-  return client.query(query)
-    .then(res => console.log('🥚🥚🥚', res.rows[0]));
+  return client.query(query);
+  // .then(res => console.log('🥚🥚🥚', res.rows[0]));
 }
 
 function addWorkoutToUser(workout){
@@ -207,7 +225,7 @@ function addWorkoutToUser(workout){
   return validateExercise(workout).then( res => {
     return client.query(query)
       .then(res => {
-        console.log('egg egg egg', res.rows);
+        // console.log('egg egg egg', res.rows);
         return res.rows;
       });
   });
@@ -223,7 +241,7 @@ function validateExercise(workout){
   };
   return client.query(query)
     .then(res => {
-      console.log('📚📚📚',res.rows[0]);
+      // console.log('🏆🏆🏆',res.rows[0]);
       if (res.rows.length === 1){
         return true;
       }else{
@@ -239,7 +257,7 @@ function validateExercise(workout){
 
 function createExercise(workout){
   const query = {
-    text: `INSERT INTO exercise (exercise_id, exercise_name, category, workout_desc, equipment)
+    text: `INSERT INTO exercises (exercise_id, exercise_name, category, workout_desc, equipment)
       VALUES ($1, $2, $3, $4, $5)
       RETURNING *`,
     values: [workout.id, workout.name, workout.category, workout.description, workout.equipment]
