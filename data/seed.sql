@@ -36,6 +36,14 @@ INSERT INTO exercises (exercise_id, exercise_name, category, workout_desc, equip
      , 'Barbell'
   );
 
--- INSERT INTO userExercise (username, exercise_id)
---   VALUES('Nathan', 1);
+INSERT INTO userExercise (username, exercise_id)
+  VALUES('nessie', 97);
 
+INSERT INTO userExercise (username, exercise_id)
+  VALUES('nessie', 88);
+
+INSERT INTO userExercise (username, exercise_id)
+  VALUES('nessie', 268);
+
+INSERT INTO userExercise (username, exercise_id)
+  VALUES('nessie', 412);
