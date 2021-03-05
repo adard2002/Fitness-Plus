@@ -6,7 +6,7 @@ CREATE TABLE exercises (
     exercise_id INT PRIMARY KEY
     , exercise_name VARCHAR(255) NOT NULL
     , category VARCHAR(255) NOT NULL
-    , workout_desc VARCHAR(255)
+    , workout_desc VARCHAR
     , equipment VARCHAR(255)
 );
 
