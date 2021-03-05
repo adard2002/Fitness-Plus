@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS userExercise;
+DROP TABLE IF EXISTS userWorkout;
 DROP TABLE IF EXISTS exercises;
 DROP TABLE IF EXISTS username;
 
