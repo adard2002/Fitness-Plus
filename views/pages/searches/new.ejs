@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
-        <title>Mystery Project</title>
+        <title>FitNess Plus</title>
         <!-- <meta name="description" content=""> -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -16,7 +16,7 @@
    <body>
 
     <header>
-          <h1>Mystery Project</h1>
+          <h1>FitNess Plus</h1>
           <nav class="navbar navbar-default" role="navigation">           
             <ul class="nav navbar-nav">
                 <li><a class="navRadius" href="/">Home</a></li>
@@ -24,20 +24,21 @@
                 <li><a class="navRadius" href="/workout">My Workouts</a></li>
                 <li><a class="navRadius" href="/aboutUs">About Us</a></li>
                 <li><a class="navRadius" href="/login">Login</a></li>
-                <!-- <li><a href="/books/2">Book</a></li> -->   </ul>    
+                </ul>    
         </nav>
     </header>
 
 
     <form class="workout-view-container" action="/searches" method="POST">  <!-- action has to be "/searches" which matches the server.js in the app.post('/searches', booksHandler); -->
         <fieldset>
-         <span font-size="20px">Abs</span> <input type="radio" name="searchType" value="abs"/>
-         <span font-size="20px">Arms</span><input type="radio" name="searchType" value="arms" />
-         <span font-size="20px">Back</span><input type="radio" name="searchType" value="back" />
-         <span font-size="20px">Calves</span><input type="radio" name="searchType" value="calves" />
-         <span font-size="20px">Chest</span><input type="radio" name="searchType" value="chest" />
-         <span font-size="20px">Legs</span><input type="radio" name="searchType" value="legs" />
-         <span font-size="20px">Shoulders</span><input type="radio" name="searchType" value="shoulders" />
+         <label font-size="20px"> Abs <input type="radio" name="searchType" value="10"/></label>
+         <label font-size="20px"> Arms <input type="radio" name="searchType" value="8" /></label>
+         <label font-size="20px"> Back <input type="radio" name="searchType" value="12" /></label>
+         <label font-size="20px"> Calves <input type="radio" name="searchType" value="14" /></label>
+         <label font-size="20px"> Chest <input type="radio" name="searchType" value="11" /></label>
+         <label font-size="20px"> Legs <input type="radio" name="searchType" value="9" /></label>
+         <label font-size="20px"> Shoulders <input type="radio" name="searchType" value="13" /></label>
+         <!-- <label font-size="20px">All</span><input type="radio" name="searchAll" value="all" /> -->
          <!-- <input type="text" name="searchQuery" /> -->
         </fieldset>
         <button class = "api--button" type="submit">Search</button>

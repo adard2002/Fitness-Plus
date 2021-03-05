@@ -6,6 +6,7 @@ require('dotenv').config();
 
 // Application Dependencies
 const express = require('express');
+
 // const cors = require('cors');
 const pg = require('pg');
 pg.defaults.ssl = process.env.NODE_ENV === 'production' && { rejectUnauthorized: false };
@@ -36,9 +37,8 @@ app.get('/login', (request, response) => {
   response.render('./login');
 });
 
-app.get('/workout', (request, response) => {
-  response.render('workout');
-});
+app.get('/workout', showWorkouts);
+app.post('/workout', showAddedWorkout);
 
 app.get('/searches', workoutHandler);
 app.post('/searches', workoutHandler); //has to match the form action on the new.js for the /searches
@@ -48,7 +48,15 @@ app.get('/searches/new', (request, response) => {
   response.render('pages/searches/new'); //do not include a / before pages or it will say that it is not in the views folder
 });
 app.get('/test', (request, response) => {
-  validateUser('Adara')
+  validateUser('demo');
+  getWorkoutByUser('demo')
+  //    new Workout({
+  //   id:1
+  //   , category:13
+  //   , name:'deadlift'
+  //   , description:'test abc123 and stuff'
+  //   , equipment: 'marshmallow'
+  // }))
     .then(res => response.send(res))
     .catch(e => errorHandler(e,request,response));
 });
@@ -95,14 +103,19 @@ app.use('*', (request, response) => response.send('Sorry, that route does not ex
 // }
 
 function workoutHandler(request, response) {
-  let url = 'https://wger.de/api/v2/exerciseinfo/';
-  // if (request.body.searchType === 'abs') { url += `+name:${request.body.searchType}`; }
-  console.log('request aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', url);
+  const category = request.body.searchType;
+  let url = 'https://wger.de/api/v2/exercise/';
+  // console.log('request aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', url);
   superagent.get(url)
     .query({
       language: 2,
+      category: category
     })
-    .then((workoutsResponse) => workoutsResponse.body.results.map(workoutResult => new Workout(workoutResult)))
+    .then((workoutsResponse) => workoutsResponse.body.results.map(workoutResult => {
+      // console.log('workoutsResponse', workoutsResponse);
+      return new Workout(workoutResult);
+
+    }))
     .then(workouts => {
       // console.log('workouts', workouts);
       response.render('pages/searches/show', {workouts: workouts});
@@ -113,6 +126,25 @@ function workoutHandler(request, response) {
     });
 
 } // end workoutHandler function
+
+function showWorkouts(request, response) {
+  // console.log('🎆🎆',request.query);
+  const user = request.query.username?request.query.username:'demo';
+  // console.log('✨✨', user);
+  getWorkoutByUser(user).then(res => {
+    const workouts = {workouts:res};
+    response.render('workout', workouts);
+  });
+}
+
+function showAddedWorkout(request, response){
+  // console.log('🧨🧨',request.query);
+  const workout = new Workout(request.body);
+  addWorkoutToUser(workout).then(res => getWorkoutByUser('demo').then(res => {
+    const workouts = {workouts:res};
+    response.render('workout', workouts);
+  }));
+}
 
 //Has to be after stuff loads too
 app.use(notFoundHandler);
@@ -126,30 +158,28 @@ function getAvatar(seed) {
   return { image: url };
 }
 
-function dbGetWorkoutByUser (username){
-  let result;
+function getWorkoutByUser (username){
   const query = {
     name: 'getWorkoutByUser',
     text: `SELECT 
-        t2.username
-        , t3.exercise_name
-        , t3.category
-        , t1.workout_desc
-        , t1.equipment
-      FROM userWorkout t1
+        t3.exercise_id AS id
+        , t3.exercise_name AS name
+        , t3.category AS category
+        , t3.workout_desc AS description
+        , t3.equipment AS equipment
+      FROM userExercise t1
       INNER JOIN username t2
       ON t1.username = t2.username
       INNER JOIN exercises t3
-      ON t1.workout_id = t3.exercise_id
+      ON t1.exercise_id = t3.exercise_id
       WHERE t2.username = $1`,
     values: [username]
   };
-
-  return client.query(query);
+  // returns array of Workout objects
+  return client.query(query).then(res => res.rows.map(obj => new Workout(obj)));
 }
 
 function validateUser(username){
-  let result;
   const query = {
     // name: 'getUserByName',
     text: `SELECT username
@@ -159,7 +189,7 @@ function validateUser(username){
   };
   return client.query(query)
     .then(res => {
-      console.log('📚📚📚',res.rows[0]);
+      // console.log('📚📚📚',res.rows[0]);
       if (res.rows.length === 1){
         return true;
       }else{
@@ -174,7 +204,6 @@ function validateUser(username){
 }
 
 function createUser(username){
-  let result;
   const query = {
     name: 'createUserByName',
     text: `INSERT INTO username (username)
@@ -182,9 +211,61 @@ function createUser(username){
       RETURNING *`,
     values: [username]
   };
-  return client.query(query)
-    .then(res => console.log('🥚🥚🥚', res.rows[0]));
+  return client.query(query);
+  // .then(res => console.log('🥚🥚🥚', res.rows[0]));
 }
+
+function addWorkoutToUser(workout){
+  const query = {
+    text: `INSERT INTO userExercise (username, exercise_id)
+    VALUES ('demo', $1)
+    RETURNING *`,
+    values: [workout.id]
+  };
+  return validateExercise(workout).then( res => {
+    return client.query(query)
+      .then(res => {
+        // console.log('egg egg egg', res.rows);
+        return res.rows;
+      });
+  });
+}
+
+function validateExercise(workout){
+  const query = {
+    // name: 'getUserByName',
+    text: `SELECT *
+      FROM exercises
+      WHERE exercises.exercise_id = $1`,
+    values: [workout.id]
+  };
+  return client.query(query)
+    .then(res => {
+      // console.log('🏆🏆🏆',res.rows[0]);
+      if (res.rows.length === 1){
+        return true;
+      }else{
+        return createExercise(workout)
+          .then(res => {
+            return false;
+          });
+      }
+    });
+  // console.log('❤❤❤',result);
+// return result;
+}
+
+function createExercise(workout){
+  const query = {
+    text: `INSERT INTO exercises (exercise_id, exercise_name, category, workout_desc, equipment)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *`,
+    values: [workout.id, workout.name, workout.category, workout.description, workout.equipment]
+  };
+  return client.query(query)
+    .then(res => console.log('chimkin nugget', res.rows[0]));
+}
+
 
 function errorHandler(error, request, response, next) {
   console.error(error);
@@ -202,10 +283,11 @@ function notFoundHandler(request, response) {
 
 
 function Workout(workoutData) {
+  this.id = workoutData.id;
   this.name = workoutData.name;
-  this.category = workoutData.category['name'];
+  this.category = workoutCategory[workoutData.category] || workoutData.category;
   this.description = workoutData.description;
-  this.equipment = workoutData.equipment[0] && workoutData.equipment[0].name;
+  this.equipment = Array.isArray(workoutData.equipment)?workoutData.equipment.map(id => workoutEquipment[id]).join():workoutData.equipment;
   // console.log('equipment--------------', workoutData.equipment);
 }
 
@@ -217,3 +299,27 @@ client.connect() //<<--keep in server.js
   .catch(err => {
     throw `PG error!:  ${err.message}`;//<<--these are tics not single quotes
   });
+
+// Enumerations
+const workoutCategory = {
+  10: 'Abs'
+  , 8: 'Arms'
+  , 12: 'Back'
+  , 14: 'Calves'
+  , 11: 'Chest'
+  , 9: 'Legs'
+  , 13: 'Shoulders'
+};
+
+const workoutEquipment = {
+  1: 'Barbell'
+  , 8: 'Bench'
+  , 3: 'Dumbbell'
+  , 4: 'Gym Mat'
+  , 9: 'Incline Bench'
+  , 10: 'Kettlebell'
+  , 7: 'None'
+  , 6: 'Pull-Up Bar'
+  , 5: 'Swiss Ball'
+  , 2: 'SZ-Bar'
+};
