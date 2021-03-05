@@ -16,3 +16,9 @@ function showSlides() {
   slides[slideIndex-1].style.display = 'block';
   setTimeout(showSlides, 5000); // Change image every 2 seconds
 }
+
+function BMI(weight, height){
+  this.kg = (0.453592)*weight;
+  this.m2 = ((0.0254)*height)((0.0254)*height);
+  this.bmi = this.kg/this.m2;
+} 
