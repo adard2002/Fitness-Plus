@@ -66,7 +66,88 @@ li {
 /* ==================================== */
 /* --------- About Us Changes --------- */
 /* ==================================== */
-img {
+
+h2 {
+  font-size: 25px; 
+  margin-bottom: 15px; 
+  text-decoration: underline; 
+ }
+  
+ h3 {
+  margin-top: 90px; 
+  margin-bottom: 15px; 
+  font-size: 20px;
+  text-decoration: underline; 
+ }
+
+ a { 
+  color: #551A8B;
+  text-decoration: none;
+ }
+  
+ #center { 
+  text-align: center; 
+ }
+  
+ section.item {
+  vertical-align: top; 
+  margin-left: 3%;
+  margin-right: 3%;
+  display: inline-block; 
+ }
+  
+ .descOfUs {
+  text-align: center;
+  }
+  
+  
+ img {
+  margin-bottom: 25px; 
+  margin-top: 25px;
+  height: 300px; 
+}
+
+span {
+  text-align: center; 
+  font-size: 16px; 
+ }
+  
+ .caption {
+  display: block; 
+  height: 200px; 
+  width: 300px;
+  text-align: center;
+ }
+  
+ .contact {
+  display: block;
+  height: 100px; 
+  width: 300px;
+  text-align: center; 
+  line-height: 20px; 
+ }
+  
+ .contactLinks {
+   background-color: rgb(44, 44, 44);
+   color: white;
+   font-size: 15px;
+   border-radius: 5px;
+   text-align: center;
+ }
+
+ .contactLinks:hover {
+   color: white;
+   background-color: rgb(82, 82, 82);
+ }
+
+
+
+
+
+
+
+
+/* img {
   height: 350px;
   width: 350px;
   text-align: center;
@@ -81,4 +162,4 @@ h3 {
   font-size: 15px;
   background-color: rgb(157, 191, 255);
   border-radius: 5px;
-}
+} */
