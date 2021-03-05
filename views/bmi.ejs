@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/bmi.css">
+  </head>
+  <body>
+
+    <header>
+      <h1>FitNess Plus</h1>
+      <nav class="navbar navbar-default" role="navigation">           
+        <ul class="nav navbar-nav">
+            <li><a class="navRadius" href="/">Home</a></li>
+            <li><a class="navRadius" href="/searches/new">Search Workouts</a></li>
+            <li><a class="navRadius" href="/workout">My Workouts</a></li>
+            <li><a class="navRadius" href="/bmi">BMI Calculator</a></li>
+            <li><a class="navRadius" href="/login">Login</a></li>
+    </nav>
+</header>
+
+<h2>Check your Body Mass Index</h2>
+<div class="container">
+  <div>
+  <form id="bmiform">
+      <div class="spacer">
+        <input id="weight" type="floating" name="" placeholder="Weight in Pounds">
+      </div>
+      <div class="spacer">
+        <input id="height" type="floating" name="password" placeholder="Height in Inches">
+      </div>
+        <input class="button" type="submit" value="Submit">
+  </form>
+  </div>
+</div>
+<footer id= "footer"></footer>
+
+    <script src="js/bmi.js" async defer></script>
+  </body>
+</html>

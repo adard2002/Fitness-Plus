@@ -37,6 +37,10 @@ app.get('/login', (request, response) => {
   response.render('./login');
 });
 
+app.get('/bmi', (request, response) => {
+  response.render('./bmi');
+});
+
 app.get('/workout', (request, response) => {
   response.render('workout');
 });
