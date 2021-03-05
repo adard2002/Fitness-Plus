@@ -140,7 +140,7 @@ function showWorkouts(request, response) {
 function showAddedWorkout(request, response){
   // console.log('🧨🧨',request.query);
   const workout = new Workout(request.body);
-  addWorkoutToUser(workout).then(res => getWorkoutByUser('demo').then(res => {
+  addWorkoutToUser(workout).then(stuff => getWorkoutByUser('demo').then(res => {
     const workouts = {workouts:res};
     response.render('workout', workouts);
   }));
