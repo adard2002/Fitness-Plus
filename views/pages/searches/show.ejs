@@ -40,7 +40,7 @@
             <p><strong>Workout Equipment:</strong><%= workout.equipment %></p>
             <div class="workoutDescription">Workout Description: <%- workout.description %></div>
 
-            <form action="/saves" method="POST">
+            <form action="/workout" method="POST">
                 <input type="hidden" name="id" value='<%= workout.id %>' />
                 <input type="hidden" name="name" value='<%= workout.name %>' />
                 <input type="hidden" name="category"   value='<%= workout.category %>' />
