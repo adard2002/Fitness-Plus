@@ -10,11 +10,9 @@ body {
 /* Main Header/Title of Site */
 h1 {
   font-size: 50px;
-  height: 20px;
   text-align: center;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0), 0 0 15px rgb(233, 162, 104);
+  text-shadow: 2px 2px 5px rgba(37, 238, 221, 0), 0 0 15px rgb(233, 162, 104);
   color: white;
-  background-color:rgb(105, 65, 65);
 }
 
 /* Header and Nav */
@@ -25,7 +23,6 @@ header {
 nav {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 50px;
-  font-style: italic;
   text-align: center;
 }
 
