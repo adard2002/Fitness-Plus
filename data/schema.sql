@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS userWorkout;
+DROP TABLE IF EXISTS userExercise;
 DROP TABLE IF EXISTS exercises;
 DROP TABLE IF EXISTS username;
 
@@ -26,11 +26,3 @@ CREATE TABLE userExercise (
 --  , weight_used DECIMAL(10,2)
 );
 
---  seed info
-INSERT INTO username (username) VALUES('Nathan');
-
-INSERT INTO exercises (exercise_id, exercise_name, category, workout_desc, equipment)
-  VALUES(1, 'deadlift', '13', 'test description', 'bigstring,longerstring');
-
-INSERT INTO userExercise (username, exercise_id)
-  VALUES('Nathan', 1);
