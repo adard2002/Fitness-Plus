@@ -62,7 +62,9 @@ app.get('/test', (request, response) => {
     .catch(e => errorHandler(e,request,response));
 });
 
-
+app.get('/aboutUs', (request, response) => {
+  response.render('aboutUs');
+});
 
 //Express Middleware
 app.use(express.urlencoded({ extended: true }));

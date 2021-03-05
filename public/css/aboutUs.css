@@ -1,0 +1,165 @@
+/* ((((((((( GOES TO THE ABOUTUS.EJS FILE ))))))))) */
+
+/* =============================================== */
+/* --------- What shows across all pages --------- */
+/* =============================================== */
+body {
+  background-color: rgb(143, 90, 90);
+}
+
+h1 {
+  font-size: 50px;
+  height: 20px;
+  text-align: center;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0), 0 0 15px rgb(233, 162, 104);
+  color: white;
+  background-color:rgb(105, 65, 65);
+}
+
+header {
+  background-color:rgb(105, 65, 65);
+}
+
+nav {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 50px;
+  font-style: italic;
+  text-align: center;
+}
+
+a:link {
+  background-color: darkgrey;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: x-large;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+a:hover, a:active {
+  background-color: rgb(233, 162, 104);
+}
+
+div {
+  display: block;
+  border: orange;
+  
+  /* list-style-type: none; */
+}
+
+li {
+  display: inline-block;
+  justify-content: space-around;
+  border-top:darkgrey;
+}
+
+.navRadius {
+  border-radius: 5px;
+}
+
+
+
+
+
+/* ==================================== */
+/* --------- About Us Changes --------- */
+/* ==================================== */
+
+h2 {
+  font-size: 25px; 
+  margin-bottom: 15px; 
+  text-decoration: underline; 
+ }
+  
+ h3 {
+  margin-top: 90px; 
+  margin-bottom: 15px; 
+  font-size: 20px;
+  text-decoration: underline; 
+ }
+
+ a { 
+  color: #551A8B;
+  text-decoration: none;
+ }
+  
+ #center { 
+  text-align: center; 
+ }
+  
+ section.item {
+  vertical-align: top; 
+  margin-left: 3%;
+  margin-right: 3%;
+  display: inline-block; 
+ }
+  
+ .descOfUs {
+  text-align: center;
+  }
+  
+  
+ img {
+  margin-bottom: 25px; 
+  margin-top: 25px;
+  height: 300px; 
+}
+
+span {
+  text-align: center; 
+  font-size: 16px; 
+ }
+  
+ .caption {
+  display: block; 
+  height: 200px; 
+  width: 300px;
+  text-align: center;
+ }
+  
+ .contact {
+  display: block;
+  height: 100px; 
+  width: 300px;
+  text-align: center; 
+  line-height: 20px; 
+ }
+  
+ .contactLinks {
+   background-color: rgb(44, 44, 44);
+   color: white;
+   font-size: 15px;
+   border-radius: 5px;
+   text-align: center;
+ }
+
+ .contactLinks:hover {
+   color: white;
+   background-color: rgb(82, 82, 82);
+ }
+
+
+
+
+
+
+
+
+/* img {
+  height: 350px;
+  width: 350px;
+  text-align: center;
+}
+
+h3 {
+  color:rgb(157, 191, 255);
+  font-size: 25px;
+}
+
+.socialLinks {
+  font-size: 15px;
+  background-color: rgb(157, 191, 255);
+  border-radius: 5px;
+} */
