@@ -32,7 +32,7 @@
   
   <h1>There are <%= workouts.length %> workouts for you to view</h1> 
 
-
+    <section class="card-container">
     <% workouts.forEach( workout => { %>  
 
         <div class="workout-results-container">
@@ -50,6 +50,7 @@
             </form>       
         </div>
 <% }) %> 
+</section>
 
 
 
